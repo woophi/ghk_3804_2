@@ -93,7 +93,7 @@ export const App = () => {
 
   useEffect(() => {
     if (controlledSwiper) {
-      controlledSwiper.slideTo(step === 2 ? 3 : step);
+      controlledSwiper.slideTo(step);
     }
   }, [step]);
 
