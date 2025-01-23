@@ -216,9 +216,9 @@ export const App = () => {
             style={{ width: '56px', height: '56px' }}
             onClick={() => {
               if (step === 7) {
-                window.gtag('event', 'back_3804_click_p5');
+                window.gtag('event', 'back_3804_click_p5_var2');
               } else {
-                window.gtag('event', `back_3804_click_p${step + 1}`);
+                window.gtag('event', `back_3804_click_p${step + 1}_var2`);
               }
 
               setStep(step === 7 ? 3 : ((step - 1) as 0 | 1 | 2 | 3 | 7));
@@ -234,14 +234,14 @@ export const App = () => {
               view="primary"
               className={appSt.btn({ color: 'finished' })}
               href="alfabank://autoaccumulation_settings?accountNumber=-1"
-              onClick={() => window.gtag('event', 'activate_3804_click_p5')}
+              onClick={() => window.gtag('event', 'activate_3804_click_p5_var2')}
             >
               Подключить
             </ButtonMobile>
             <a
               className={appSt.btn({ color: 'secondary' })}
               style={{ height: '56px', minWidth: '138px', textAlign: 'center', color: 'inherit', textDecoration: 'none' }}
-              onClick={() => window.gtag('event', 'no_activate_3804_click_p5')}
+              onClick={() => window.gtag('event', 'no_activate_3804_click_p5_var2')}
               href="alfabank://account_details_on_widgets?url=v1/screen-details-prefiller/invest-details/&accountNumber=-1"
             >
               <Typography.Text view="primary-medium" weight="bold">
@@ -255,7 +255,7 @@ export const App = () => {
             view="primary"
             className={appSt.btn()}
             onClick={() => {
-              window.gtag('event', `next_3804_click_p${step + 1}`);
+              window.gtag('event', `next_3804_click_p${step + 1}_var2`);
 
               setStep(step + 1 === 4 ? 7 : ((step + 1) as 0 | 1 | 2 | 3 | 7));
             }}
