@@ -16,16 +16,16 @@ import { appSt } from './style.css';
 
 const options = [
   {
-    title: 'Счёт',
-    subtitle: 'Открыт',
+    title: 'Копилка',
+    subtitle: 'Открыта',
   },
   {
     title: '1-ый месяц',
-    subtitle: '+ 500 ₽',
+    subtitle: '+ 50 ₽',
   },
   {
     title: '2-ой месяц',
-    subtitle: '+ 500 ₽',
+    subtitle: '+ 300 ₽',
   },
   {
     title: '3-ий месяц',
@@ -55,29 +55,38 @@ const options = [
 
 const texts = [
   {
-    title: 'Вы посадили денежное дерево',
-    subtitle: <>Пополните Инвесткопилку, чтобы дерево начало радовать вас доходами</>,
+    title: 'Малое — начало великого',
+    subtitle: <>Росток, посаженный сегодня, даст плоды завтра. Начните с малого — и увидите, как растёт ваш капитал</>,
     step: 0,
   },
   {
-    title: 'Ухаживайте за ним регулярно',
-    subtitle: <>Даже 50 рублей в месяц помогут вашему дереву расти и приносить плоды. Главное — регулярность</>,
+    title: 'Начни путь, и путь откроется',
+    subtitle: (
+      <>Как путь начинается с шага, так и рост начинается с первого вложения. Пополните копилку — и дерево начнёт цвести</>
+    ),
     step: 1,
   },
   {
-    title: 'Не пропускайте пополнение',
-    subtitle: <>Если в какой-то месяц вы не пополните Инвесткопилку, то дерево начнёт увядать</>,
+    title: 'Лучше капля в день, чем ливень раз в год',
+    subtitle: <>Небольшие, но регулярные пополнения, как капли дождя, питают дерево, чтобы оно давало плоды</>,
     step: 2,
   },
   {
-    title: 'Подключите автонакопление',
-    subtitle: <>Так ваше дерево будет расти без лишних забот и каждый месяц радовать доходом</>,
+    title: 'Засуха лишает плодов',
+    subtitle: (
+      <>Дерево без дождя слабеет. Так и капитал без пополнений теряет силу. Не забывайте регулярно поливать дерево</>
+    ),
+    step: 3,
+  },
+  {
+    title: 'Пусть рост не прекращается',
+    subtitle: <>Подключите автонакопление, чтобы дерево стало бесконечным потоком изобилия — без лишних тревог и усилий</>,
     step: 7,
   },
 ];
 
 export const App = () => {
-  const [step, setStep] = useState<0 | 1 | 2 | 7>(0);
+  const [step, setStep] = useState<0 | 1 | 2 | 3 | 7>(0);
   const [controlledSwiper, setControlledSwiper] = useState<SwiperClass | null>(null);
 
   const textData = texts.find(t => t.step === step);
@@ -99,6 +108,7 @@ export const App = () => {
           <div className={appSt.dot({ selected: step === 0 })} />
           <div className={appSt.dot({ selected: step === 1 })} />
           <div className={appSt.dot({ selected: step === 2 })} />
+          <div className={appSt.dot({ selected: step === 3 })} />
           <div className={appSt.dot({ selected: step === 7 })} />
         </div>
         <Typography.Text className={appSt.subtitle} view="component" color="secondary">
@@ -106,9 +116,9 @@ export const App = () => {
         </Typography.Text>
 
         <div style={{ margin: '3rem 0' }} className={appSt.dotContainer}>
-          <DotsFrame lvl={step} lvlFill={step === 2 ? '#EF4F1D' : '#90AE10'} containerClassName={appSt.frame}>
+          <DotsFrame lvl={step} lvlFill={step === 3 ? '#EF4F1D' : '#90AE10'} containerClassName={appSt.frame}>
             <div
-              className={appSt.imgTree({ grow: step === 7 ? 3 : step === 2 ? 1 : step, tree: step === 2 ? 'red' : 'green' })}
+              className={appSt.imgTree({ grow: step === 7 ? 3 : step === 3 ? 1 : step, tree: step === 3 ? 'red' : 'green' })}
             />
             {step === 1 && (
               <div className={appSt.chip({ color: 'green' })}>
@@ -118,13 +128,28 @@ export const App = () => {
                 </Typography.Text>
               </div>
             )}
-            {step === 2 && (
+            {step === 3 && (
               <div className={appSt.chip({ color: 'red' })}>
                 <img src={uncheckWhite} alt="check" width={24} height={24} />
                 <Typography.Text view="primary-medium" weight="medium">
                   x 2
                 </Typography.Text>
               </div>
+            )}
+            {step === 2 && (
+              <>
+                <div className={appSt.chip({ color: 'green' })}>
+                  <img src={checkWhite} alt="check" width={24} height={24} />
+                  <Typography.Text view="primary-medium" weight="medium">
+                    x 2
+                  </Typography.Text>
+                </div>
+                <div className={appSt.chipText}>
+                  <Typography.Text view="primary-medium" weight="medium">
+                    Комбо
+                  </Typography.Text>
+                </div>
+              </>
             )}
             {step === 7 && (
               <>
@@ -156,8 +181,8 @@ export const App = () => {
         >
           {options.map((o, index) => (
             <SwiperSlide
-              style={index === 3 && step === 2 ? { border: '2px solid #EF4F1D' } : undefined}
-              className={appSt.swSlide({ selected: step === 2 ? index === step + 1 : index === step })}
+              style={index === 3 && step === 3 ? { border: '2px solid #EF4F1D' } : undefined}
+              className={appSt.swSlide({ selected: step === 3 ? index === 3 : index === step })}
               key={o.title}
             >
               <Typography.Text view="primary-small">{o.title}</Typography.Text>
@@ -166,9 +191,9 @@ export const App = () => {
               </Typography.Text>
               <img
                 src={
-                  step === 2 && index === step + 1
+                  index === 3 && step === 3
                     ? uncheckRed
-                    : step !== 2 && index === step
+                    : step !== 3 && index === step
                     ? checkGreen
                     : index > step
                     ? clock
@@ -196,7 +221,7 @@ export const App = () => {
                 window.gtag('event', `back_3804_click_p${step + 1}`);
               }
 
-              setStep(step === 7 ? 2 : ((step - 1) as 0 | 1 | 2 | 7));
+              setStep(step === 7 ? 3 : ((step - 1) as 0 | 1 | 2 | 3 | 7));
             }}
           >
             <CDNIcon name="glyph_chevron-left_m" />
@@ -215,12 +240,12 @@ export const App = () => {
             </ButtonMobile>
             <a
               className={appSt.btn({ color: 'secondary' })}
-              style={{ height: '56px', minWidth: '108px', textAlign: 'center', color: 'inherit', textDecoration: 'none' }}
+              style={{ height: '56px', minWidth: '138px', textAlign: 'center', color: 'inherit', textDecoration: 'none' }}
               onClick={() => window.gtag('event', 'no_activate_3804_click_p5')}
               href="alfabank://account_details_on_widgets?url=v1/screen-details-prefiller/invest-details/&accountNumber=-1"
             >
               <Typography.Text view="primary-medium" weight="bold">
-                Не сейчас
+                Неинтересно
               </Typography.Text>
             </a>
           </>
@@ -232,7 +257,7 @@ export const App = () => {
             onClick={() => {
               window.gtag('event', `next_3804_click_p${step + 1}`);
 
-              setStep(step + 1 === 3 ? 7 : ((step + 1) as 0 | 1 | 2 | 7));
+              setStep(step + 1 === 4 ? 7 : ((step + 1) as 0 | 1 | 2 | 3 | 7));
             }}
           >
             <div className={appSt.btnContainer}>
